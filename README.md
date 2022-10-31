@@ -145,6 +145,9 @@ Please read the full [API docs](https://github.com/timunderhay/ts-reflection/blo
 You can find comprehensive installation instructions in the [installation docs](https://github.com/timunderhay/ts-reflection/blob/main/docs/INSTALLATION.md).
 
 <a id="acknowledgement"></a>
+
 ## Acknowledgement
 
-This idea was inspired by [`ts-transformer-keys`](https://www.npmjs.com/package/ts-transformer-keys) NPM module. The E2E testing infrastructure that ensures compatibility with all minor TypeScript versions is based on my [`ts-type-checked`](https://www.npmjs.com/package/ts-type-checked) project.
+This module has been adapted from https://github.com/janjakubnanista/ts-reflection by Ján Jakub Naništa.
+
+This idea was inspired by [`ts-transformer-keys`](https://www.npmjs.com/package/ts-transformer-keys) NPM module. The E2E testing infrastructure that ensures compatibility with all minor TypeScript versions is based on Ján's [`ts-type-checked`](https://www.npmjs.com/package/ts-type-checked) project.
