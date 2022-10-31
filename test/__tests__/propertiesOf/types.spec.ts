@@ -3,7 +3,7 @@ import 'jest';
 import { expectPropertiesMatch } from '../utils';
 
 // @ts-ignore
-import { propertiesOf } from 'ts-reflection';
+import { propertiesOf } from '@timunderhay/ts-reflection';
 
 describe('propertiesOf', () => {
   describe('types', () => {
@@ -37,7 +37,7 @@ describe('propertiesOf', () => {
     });
 
     it('should return correct properties of symbol', () => {
-      const expectedProperties = ['toString', 'valueOf', Symbol.toStringTag];
+      const expectedProperties = ['toString', 'valueOf', 'description', Symbol.toStringTag, Symbol.toPrimitive];
 
       expectPropertiesMatch(propertiesOf<symbol>(), expectedProperties);
       expectPropertiesMatch(propertiesOf<Symbol>(), expectedProperties);
@@ -181,6 +181,10 @@ describe('propertiesOf', () => {
         'padEnd',
         'trimLeft',
         'trimRight',
+        'trimStart',
+        'trimEnd',
+        'matchAll',
+        'at',
       ];
 
       expectPropertiesMatch(propertiesOf<string>(), expectedProperties);
@@ -221,6 +225,9 @@ describe('propertiesOf', () => {
         'values',
         Symbol.unscopables,
         'includes',
+        'flatMap',
+        'flat',
+        'at',
       ];
 
       expectPropertiesMatch(propertiesOf<unknown[]>(), expectedProperties);
@@ -265,6 +272,9 @@ describe('propertiesOf', () => {
         '0',
         '1',
         '2',
+        'flatMap',
+        'flat',
+        'at',
       ];
 
       expectPropertiesMatch(propertiesOf<[number, boolean, string]>(), expectedProperties);
@@ -294,6 +304,8 @@ describe('propertiesOf', () => {
         'keys',
         'values',
         'includes',
+        'flatMap',
+        'flat',
       ];
 
       expectPropertiesMatch(propertiesOf<ReadonlyArray<unknown>>(), expectedProperties);

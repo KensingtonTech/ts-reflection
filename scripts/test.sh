@@ -62,43 +62,48 @@ echo "Running tests for version $VERSION"
 # Move to the test project
 cd "$TEST_PATH"
 
-# Remove ts-reflection dependency to make sure we don't get a stale version
-rm -rf node_modules/ts-reflection
+  # Remove ts-reflection dependency to make sure we don't get a stale version
+  rm -rf node_modules/\@kensingtonech/ts-reflection
 
-# Install the test project dependencies
-yarn --check-files
+  # Install the test project dependencies
+  yarn --check-files
+
+  # Compile jest spec files
+  yarn ttsc
 
 # And move back to root
 cd ..
 
-# Remove the sandbox folder
-rm -rf "$SANDBOX_PATH"
+  # Remove the sandbox folder
+  rm -rf "$SANDBOX_PATH"
 
-# Copy the test project to the sandbox
-cp -R "$TEST_PATH/" "$SANDBOX_PATH"
+  # Copy the test project to the sandbox
+  cp -R "$TEST_PATH/" "$SANDBOX_PATH"
+
+
 
 # Move to the untracked sandbox project
 cd "$SANDBOX_PATH"
 
-# Get the correct version of TypeScript config
-cp "tsconfig.${TS_LIB}.json" "tsconfig.json"
+  # Get the correct version of TypeScript config
+  cp "tsconfig.${TS_LIB}.json" "tsconfig.json"
 
-# Remove ts-reflection dependency to make sure we don't get a stale version
-rm -rf node_modules/ts-reflection
+  # Remove ts-reflection dependency to make sure we don't get a stale version
+  #rm -rf node_modules/\@kensingtonech/ts-reflection
 
-# And add a specific version of typescript
-rm -rf node_modules/typescript
-yarn add --dev --exact typescript@${VERSION}
+  # And add a specific version of typescript
+  rm -rf node_modules/typescript
+  yarn add --dev --exact typescript@${VERSION}
 
-# Install the test project dependencies
-yarn --check-files
+  # Install the test project dependencies
+  #yarn --check-files
 
-# Clear jest cache
-yarn jest --clearCache
+  # Clear jest cache
+  yarn jest --clearCache
 
 if [ -z "$DEBUG" ]; then
   # In non-debug mode the jest bin is used
-  yarn jest "$TEST_PATTERN"
+  yarn jest
 else
   # In debug mode node is started with inspect flag
   node --inspect ./node_modules/.bin/jest --runInBand "$TEST_PATTERN"

@@ -1,6 +1,6 @@
 <!-- Logo -->
 <p align="center">
-  <img width="50%" src="https://raw.githubusercontent.com/janjakubnanista/ts-reflection/main/res/ts-reflection.jpg"/>
+  <img width="50%" src="https://raw.githubusercontent.com/TimUnderhay/ts-reflection/main/res/ts-reflection.jpg"/>
 </p>
 
 <h1 align="center">
@@ -11,20 +11,6 @@
   Type inspection utilities for TypeScript
 </p>
 
-<!-- The badges section -->
-<p align="center">
-  <!-- CircleCI build status -->
-  <a href="https://circleci.com/gh/janjakubnanista/ts-reflection/tree/main"><img alt="CircleCI Build Status" src="https://circleci.com/gh/janjakubnanista/ts-reflection.svg?style=shield"></a>
-  <!-- Fury.io NPM published package version -->
-  <a href="https://www.npmjs.com/package/ts-reflection"><img alt="NPM Version" src="https://badge.fury.io/js/ts-reflection.svg"/></a>
-  <!-- Shields.io dev dependencies status -->
-  <a href="https://github.com/janjakubnanista/ts-reflection/blob/main/package.json"><img alt="Dev Dependency Status" src="https://img.shields.io/david/dev/janjakubnanista/ts-reflection"/></a>
-  <!-- Snyk.io vulnerabilities badge -->
-  <a href="https://snyk.io/test/github/janjakubnanista/ts-reflection"><img alt="Known Vulnerabilities" src="https://snyk.io/test/github/janjakubnanista/ts-reflection/badge.svg"/></a>
-  <!-- Shields.io license badge -->
-  <a href="https://github.com/janjakubnanista/ts-reflection/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/ts-reflection"/></a>
-</p>
-
 <p align="center">
   <code>ts-reflection</code> allows you to access information about your types in runtime - e.g. get properties of a type or possible values of a union. It is compatible with <a href="./docs/INSTALLATION.md#installation--rollup">rollup</a>, <a href="./docs/INSTALLATION.md#installation--webpack">webpack</a>, and <a href="./docs/INSTALLATION.md#installation--ttypescript">ttypescript</a> projects and works nicely with <a href="./docs/INSTALLATION.md#installation--jest">jest</a> or <a href="./docs/INSTALLATION.md#installation--ts-node">ts-node</a>
 </p>
@@ -32,12 +18,19 @@
 <p align="center">
   <a href="#motivation">Motivation</a>
   <span>|</span>
-  <a href="https://github.com/janjakubnanista/ts-reflection/blob/main/docs/API.md">API</a>
+  <a href="https://github.com/TimUnderhay/ts-reflection/blob/main/docs/API.md">API</a>
   <span>|</span>
-  <a href="https://github.com/janjakubnanista/ts-reflection/blob/main/docs/INSTALLATION.md">Installation</a>
+  <a href="https://github.com/TimUnderhay/ts-reflection/blob/main/docs/INSTALLATION.md">Installation</a>
   <span>|</span>
   <a href="#acknowledgement">Acknowledgement</a>
 </p>
+
+## Tim's Version
+* Supports ESM 'import'.
+* Supports TypeScript versions >= 4.0.2.
+* Support for Typescript 3.x has been dropped.
+* Unit tests have been fixed for recent ES prototype updates.
+* Unit tests no longer use ts-jest, which breaks line numbering in output.
 
 ## Wait what?
 
@@ -103,7 +96,7 @@ const keys: Key[] = propertiesOf<MyInterface>();
 
 ## API
 
-_You can find comprehensive API documentation in the [API docs](https://github.com/janjakubnanista/ts-reflection/blob/main/docs/API.md)._
+_You can find comprehensive API documentation in the [API docs](https://github.com/timunderhay/ts-reflection/blob/main/docs/API.md)._
 
 `ts-reflection` exports two functions: `valuesOf` (for accessing values of union types) and `propertiesOf` (for accessing properties of types).
 
@@ -120,7 +113,7 @@ type UnionType = 'string value' | 1 | true | Symbol.toStringTag;
 const unionTypeValues = valuesOf<UnionType>(); // ['string value', 1, true, Symbol.toStringTag]
 ```
 
-Please read the full [API docs](https://github.com/janjakubnanista/ts-reflection/blob/main/docs/API_REFLECTION.md#valuesOf) for more information about `valuesOf`.
+Please read the full [API docs](https://github.com/timunderhay/ts-reflection/blob/main/docs/API_REFLECTION.md#valuesOf) for more information about `valuesOf`.
 
 ### `propertiesOf`
 
@@ -145,11 +138,11 @@ const optionalProperties = propertiesOf<MyInterface>({ optional: true }); // ['d
 const requiredProperties = propertiesOf<MyInterface>({ optional: false }); // ['name', 'hobbies']
 ```
 
-Please read the full [API docs](https://github.com/janjakubnanista/ts-reflection/blob/main/docs/API_REFLECTION.md#propertiesOf) for more information about `propertiesOf` and the queries it supports.
+Please read the full [API docs](https://github.com/timunderhay/ts-reflection/blob/main/docs/API_REFLECTION.md#propertiesOf) for more information about `propertiesOf` and the queries it supports.
 
 ## Installation
 
-You can find comprehensive installation instructions in the [installation docs](https://github.com/janjakubnanista/ts-reflection/blob/main/docs/INSTALLATION.md).
+You can find comprehensive installation instructions in the [installation docs](https://github.com/timunderhay/ts-reflection/blob/main/docs/INSTALLATION.md).
 
 <a id="acknowledgement"></a>
 ## Acknowledgement

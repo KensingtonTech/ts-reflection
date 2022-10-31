@@ -9,7 +9,12 @@ import ts from 'typescript';
  * @param typeChecker {ts.TypeChecker} Instance of ts.TypeChecker
  * @param scope {ts.TypeNode} The root TypeNode that contained the type
  */
-const getPropertyName = (property: ts.Symbol, typeChecker: ts.TypeChecker, scope: ts.TypeNode): ts.Expression => {
+const getPropertyName = (
+  factory: ts.NodeFactory,
+  property: ts.Symbol,
+  typeChecker: ts.TypeChecker,
+  scope: ts.TypeNode,
+): ts.Expression => {
   // Let's get the property type
   const propertyType: ts.Type | undefined =
     // The nameType property is not documented but can serve as a good starting point,
@@ -20,11 +25,11 @@ const getPropertyName = (property: ts.Symbol, typeChecker: ts.TypeChecker, scope
   if (propertyType && typeof propertyType.flags === 'number' && propertyType.flags & ts.TypeFlags.NumberLiteral) {
     const nameAsNumber = parseFloat(property.name);
     if (!isNaN(nameAsNumber) && String(nameAsNumber) === property.name) {
-      return ts.createLiteral(nameAsNumber);
+      return factory.createNumericLiteral(nameAsNumber);
     }
   }
 
-  return ts.createLiteral(property.name);
+  return factory.createStringLiteral(property.name);
 };
 
 /**
@@ -36,6 +41,7 @@ const getPropertyName = (property: ts.Symbol, typeChecker: ts.TypeChecker, scope
  * @param scope {ts.TypeNode} The root TypeNode that contained the type
  */
 export const getPropertyAccessor = (
+  factory: ts.NodeFactory,
   property: ts.Symbol,
   typeChecker: ts.TypeChecker,
   scope: ts.TypeNode,
@@ -51,5 +57,5 @@ export const getPropertyAccessor = (
     if (ts.isComputedPropertyName(declaration.name)) return declaration.name.expression;
   }
 
-  return getPropertyName(property, typeChecker, scope);
+  return getPropertyName(factory, property, typeChecker, scope);
 };

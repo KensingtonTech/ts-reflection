@@ -1,38 +1,55 @@
 import ts from 'typescript';
 
-export const createVariable = (identifier: ts.Identifier, initializer: ts.Expression): ts.Statement =>
-  ts.createVariableStatement(undefined, [ts.createVariableDeclaration(identifier, undefined, initializer)]);
+export const createVariable = (
+  factory: ts.NodeFactory,
+  identifier: ts.Identifier,
+  initializer: ts.Expression,
+): ts.Statement =>
+  factory.createVariableStatement(undefined, [
+    factory.createVariableDeclaration(identifier, undefined, undefined, initializer),
+  ]);
 
-export const createImportStatement = (namedImport: string, path: string): ts.Statement => {
+export const createImportStatement = (factory: ts.NodeFactory, namedImport: string, path: string): ts.Statement =>
   // from https://stackoverflow.com/questions/59693819/generate-import-statement-programmatically-using-typescript-compiler-api
-
-  return ts.createImportDeclaration(
-    /* decorators */ undefined,
+  factory.createImportDeclaration(
     /* modifiers */ undefined,
-    ts.createImportClause(
+    factory.createImportClause(
+      false,
       undefined,
-      ts.createNamedImports([ts.createImportSpecifier(undefined, ts.createIdentifier(namedImport))]),
+      factory.createNamedImports([
+        factory.createImportSpecifier(true, undefined, factory.createIdentifier(namedImport)),
+      ]),
     ),
-    ts.createLiteral(path),
+    factory.createStringLiteral(path),
   );
-};
 
-export const createRequire = (identifier: ts.Identifier, path: string, property = 'default'): ts.Statement[] => [
+export const createRequire = (
+  factory: ts.NodeFactory,
+  identifier: ts.Identifier,
+  path: string,
+  property = 'default',
+): ts.Statement[] => [
   createVariable(
+    factory,
     identifier,
-    ts.createPropertyAccess(
-      ts.createCall(ts.createIdentifier('require'), undefined, [ts.createLiteral(path)]),
+    factory.createPropertyAccessExpression(
+      factory.createCallExpression(factory.createIdentifier('require'), undefined, [factory.createStringLiteral(path)]),
       property,
     ),
   ),
 ];
 
-export const createImport = (identifier: ts.Identifier, path: string, property = 'default'): ts.Statement[] => [
-  createImportStatement(property, path),
-  ts.createVariableStatement(
+export const createImport = (
+  factory: ts.NodeFactory,
+  identifier: ts.Identifier,
+  path: string,
+  property = 'default',
+): ts.Statement[] => [
+  createImportStatement(factory, property, path),
+  factory.createVariableStatement(
     undefined,
-    ts.createVariableDeclarationList(
-      [ts.createVariableDeclaration(identifier, undefined, ts.createIdentifier(property))],
+    factory.createVariableDeclarationList(
+      [factory.createVariableDeclaration(identifier, undefined, undefined, factory.createIdentifier(property))],
       ts.NodeFlags.None,
     ),
   ),

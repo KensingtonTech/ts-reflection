@@ -1,13 +1,13 @@
 <h1>
-  <img height="56px" width="auto" src="https://raw.githubusercontent.com/janjakubnanista/ts-reflection/main/res/ts-reflection@xs.jpg" align="center"/>
+  <img height="56px" width="auto" src="https://raw.githubusercontent.com/timunderhay/ts-reflection/main/res/ts-reflection@xs.jpg" align="center"/>
   <span>ts-reflection</span>
 </h1>
 
-<a href="https://github.com/janjakubnanista/ts-reflection">&lt; Back to project</a>
+<a href="https://github.com/timunderhay/ts-reflection">&lt; Back to project</a>
 
 # Reflection API
 
-Two functions are exported: `valuesOf` and `propertiesOf`. (funny enough neither of them exist, just check [index.js](https://github.com/janjakubnanista/ts-reflection/tree/main/src/index.ts) yourself :grinning:).
+Two functions are exported: `valuesOf` and `propertiesOf`. (funny enough neither of them exist, just check [index.js](https://github.com/timunderhay/ts-reflection/tree/main/src/index.ts) yourself :grinning:).
 
 ```typescript
 import { propertiesOf, valuesOf } from 'ts-reflection';

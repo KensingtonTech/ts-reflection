@@ -1,7 +1,7 @@
 import 'jest';
 
 // @ts-ignore
-import { valuesOf } from 'ts-reflection';
+import { valuesOf } from '@timunderhay/ts-reflection';
 
 const expectPropertiesMatch = (received: unknown[], expected: unknown[]) => {
   expect(received).toHaveLength(expected.length);

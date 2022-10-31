@@ -3,7 +3,7 @@ import 'jest';
 import { expectPropertiesMatch } from '../utils';
 
 // @ts-ignore
-import { propertiesOf } from 'ts-reflection';
+import { propertiesOf } from '@timunderhay/ts-reflection';
 
 describe('propertiesOf', () => {
   describe('basics', () => {

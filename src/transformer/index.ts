@@ -20,20 +20,23 @@ export default (program: ts.Program): ts.TransformerFactory<ts.SourceFile> => {
   // Get a reference to a TypeScript TypeChecker in order to resolve types from type nodes
   const typeChecker = program.getTypeChecker();
   return (context: ts.TransformationContext) => (file: ts.SourceFile) => {
-    const createPropertiesOfIdentifier = ts.createIdentifier('___getPropertyFilter___');
+    const { factory } = context;
+    const createPropertiesOfIdentifier = factory.createIdentifier('___getPropertyFilter___');
 
     let createPropertiesOfImport: ts.Statement[];
     const moduleType = context.getCompilerOptions().module;
     if (moduleType && [ModuleKind.ES2015, ModuleKind.ES2020, ModuleKind.ESNext].includes(moduleType)) {
       createPropertiesOfImport = createImport(
+        factory,
         createPropertiesOfIdentifier,
-        '@kensingtontech/ts-reflection/helpers/createPropertiesOf',
+        '@timunderhay/ts-reflection/helpers/createPropertiesOf',
         'createPropertiesOf',
       );
     } else {
       createPropertiesOfImport = createRequire(
+        factory,
         createPropertiesOfIdentifier,
-        '@kensingtontech/ts-reflection/helpers/createPropertiesOf',
+        '@timunderhay/ts-reflection/helpers/createPropertiesOf',
         'createPropertiesOf',
       );
     }
@@ -52,11 +55,11 @@ export default (program: ts.Program): ts.TransformerFactory<ts.SourceFile> => {
 
         needsFilterPropertiesImport = true;
 
-        const propertiesOfFunction = ts.createCall(createPropertiesOfIdentifier, undefined, [
-          createPropertiesOf(typeChecker, typeNode),
+        const propertiesOfFunction = factory.createCallExpression(createPropertiesOfIdentifier, undefined, [
+          createPropertiesOf(factory, typeChecker, typeNode),
         ]);
 
-        return ts.createCall(propertiesOfFunction, undefined, node.arguments);
+        return factory.createCallExpression(propertiesOfFunction, undefined, node.arguments);
       }
 
       if (isOurCallExpression(node, 'valuesOf', typeChecker)) {
@@ -64,15 +67,14 @@ export default (program: ts.Program): ts.TransformerFactory<ts.SourceFile> => {
         if (!typeNode) {
           throw new Error('valuesOf<T>() requires one type parameter, none specified');
         }
-
-        return createValuesOf(typeChecker, typeNode);
+        return createValuesOf(factory, typeChecker, typeNode);
       }
 
       return node;
     });
 
     if (needsFilterPropertiesImport) {
-      return ts.updateSourceFileNode(transformedFile, [
+      return factory.updateSourceFile(transformedFile, [
         ...(needsFilterPropertiesImport ? createPropertiesOfImport : []),
         ...transformedFile.statements,
       ]);

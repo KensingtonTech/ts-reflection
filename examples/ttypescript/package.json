@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "devDependencies": {
-    "ttypescript": "^1.5.10",
-    "typescript": "3.7.3"
+    "ttypescript": "^1.5.13",
+    "typescript": "^4.8.4"
   }
 }

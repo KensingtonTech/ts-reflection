@@ -1,9 +1,9 @@
 <h1>
-  <img height="56px" width="auto" src="https://raw.githubusercontent.com/janjakubnanista/ts-reflection/main/res/ts-reflection@xs.jpg" align="center"/>
+  <img height="56px" width="auto" src="https://raw.githubusercontent.com/timunderhay/ts-reflection/main/res/ts-reflection@xs.jpg" align="center"/>
   <span>ts-reflection</span>
 </h1>
 
-<a href="https://github.com/janjakubnanista/ts-reflection">&lt; Back to project</a>
+<a href="https://github.com/timunderhay/ts-reflection">&lt; Back to project</a>
 
 # Transformer API
 

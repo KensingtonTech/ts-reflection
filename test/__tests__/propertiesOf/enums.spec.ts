@@ -1,7 +1,7 @@
 import 'jest';
 
 // @ts-ignore
-import { propertiesOf } from 'ts-reflection';
+import { propertiesOf } from '@timunderhay/ts-reflection';
 
 const expectPropertiesMatch = (received: unknown[], expected: unknown[]) => {
   expect(received).toHaveLength(expected.length);
@@ -58,73 +58,43 @@ describe('propertiesOf', () => {
       }
 
       it('should return all the keys when flags are PUBLIC', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ public: true }),
-          enumProperties,
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ public: true }), enumProperties);
       });
 
       it('should return an empty array when flags are NOT PUBLIC', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ public: false }),
-          [],
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ public: false }), []);
       });
 
       it('should return an empty array when flags are PRIVATE', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ private: true }),
-          [],
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ private: true }), []);
       });
 
       it('should return all the keys when flags are NOT PRIVATE', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ private: false }),
-          enumProperties,
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ private: false }), enumProperties);
       });
 
       it('should return an empty array when flags are PROTECTED', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ protected: true }),
-          [],
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ protected: true }), []);
       });
 
       it('should return all the keys when flags are NOT PROTECTED', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ protected: false }),
-          enumProperties,
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ protected: false }), enumProperties);
       });
 
       it('should return all the keys when flags are READONLY', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ readonly: true }),
-          enumProperties,
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ readonly: true }), enumProperties);
       });
 
       it('should return an empty array when flags are NOT READONLY', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ readonly: false }),
-          [],
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ readonly: false }), []);
       });
 
       it('should return an empty array when flags are OPTIONAL', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ optional: true }),
-          [],
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ optional: true }), []);
       });
 
       it('should return all the keys when flags are NOT OPTIONAL', () => {
-        expectPropertiesMatch(
-          propertiesOf<Enum>({ optional: false }),
-          enumProperties,
-        );
+        expectPropertiesMatch(propertiesOf<Enum>({ optional: false }), enumProperties);
       });
     });
   });

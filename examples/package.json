@@ -1,5 +1,5 @@
 {
-  "name": "@ts-reflection-examples/root",
+  "name": "@timunderhay/ts-reflection-examples",
   "private": true,
   "scripts": {
     "build": "yarn workspaces run build",
@@ -7,7 +7,7 @@
     "start": "yarn workspaces run start"
   },
   "dependencies": {
-    "ts-reflection": "file:../dist"
+    "@timunderhay/ts-reflection": "file:../dist"
   },
   "workspaces": ["jest", "rollup", "ttypescript", "webpack"]
 }

@@ -1,7 +1,7 @@
 import 'jest';
 
 // @ts-ignore
-import { propertiesOf, valuesOf } from 'ts-reflection';
+import { propertiesOf, valuesOf } from '@timunderhay/ts-reflection';
 
 describe('example jest test suite', () => {
   interface MyInterface {

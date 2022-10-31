@@ -1,6 +1,6 @@
 import { PropertyDescriptor } from '../types';
 import { PropertyFlag } from '../../types';
-import { getPropertyAccessor } from '../utils/ast';
+import { getPropertyAccessor } from './ast';
 import ts from 'typescript';
 
 const getPropertyFlags = (property: ts.Symbol): PropertyFlag => {
@@ -47,41 +47,48 @@ const getPropertyFlags = (property: ts.Symbol): PropertyFlag => {
   return flags;
 };
 
-const getEnumMembers = (declaration: ts.EnumDeclaration): PropertyDescriptor[] => {
+const getEnumMembers = (factory: ts.NodeFactory, declaration: ts.EnumDeclaration): PropertyDescriptor[] => {
   return declaration.members.map((member: ts.EnumMember) => {
     if (member.name.kind === ts.SyntaxKind.PrivateIdentifier) throw new Error('Unexpected private identifier in enum');
 
-    const name = ts.isComputedPropertyName(member.name) ? member.name.expression : ts.createLiteral(member.name);
-    const flags = PropertyFlag.PUBLIC | PropertyFlag.READONLY;
+    const name = ts.isComputedPropertyName(member.name)
+      ? member.name.expression
+      : factory.createStringLiteral(member.name.text);
 
+    const flags = PropertyFlag.PUBLIC | PropertyFlag.READONLY;
     return { name, flags };
   });
 };
 
 export const getPropertyDescriptors = (
+  factory: ts.NodeFactory,
   typeChecker: ts.TypeChecker,
   scope: ts.TypeNode,
   type: ts.Type = typeChecker.getTypeFromTypeNode(scope),
 ): PropertyDescriptor[] => {
   const declaration = type.symbol?.valueDeclaration;
   if (declaration && ts.isEnumDeclaration(declaration)) {
-    return getEnumMembers(declaration);
+    return getEnumMembers(factory, declaration);
   }
 
   return type.getApparentProperties().map((property: ts.Symbol) => {
     const flags = getPropertyFlags(property);
-    const name = getPropertyAccessor(property, typeChecker, scope);
+    const name = getPropertyAccessor(factory, property, typeChecker, scope);
 
     return { flags, name };
   });
 };
 
-export const createPropertiesOf = (typeChecker: ts.TypeChecker, typeNode: ts.TypeNode): ts.Expression =>
-  ts.createArrayLiteral(
-    getPropertyDescriptors(typeChecker, typeNode).map(({ name, flags }) =>
-      ts.createObjectLiteral([
-        ts.createPropertyAssignment('name', name),
-        ts.createPropertyAssignment('flags', ts.createLiteral(flags)),
+export const createPropertiesOf = (
+  factory: ts.NodeFactory,
+  typeChecker: ts.TypeChecker,
+  typeNode: ts.TypeNode,
+): ts.Expression =>
+  factory.createArrayLiteralExpression(
+    getPropertyDescriptors(factory, typeChecker, typeNode).map(({ name, flags }) =>
+      factory.createObjectLiteralExpression([
+        factory.createPropertyAssignment('name', name),
+        factory.createPropertyAssignment('flags', factory.createNumericLiteral(flags)),
       ]),
     ),
   );

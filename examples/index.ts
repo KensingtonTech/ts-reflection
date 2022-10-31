@@ -1,4 +1,4 @@
-import { propertiesOf, valuesOf } from 'ts-reflection';
+import { propertiesOf, valuesOf } from '@timunderhay/ts-reflection';
 
 //
 // First let's do interfaces

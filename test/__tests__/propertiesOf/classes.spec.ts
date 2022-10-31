@@ -3,7 +3,7 @@ import 'jest';
 import { TestClass, expectPropertiesMatch } from '../utils';
 
 // @ts-ignore
-import { propertiesOf } from 'ts-reflection';
+import { propertiesOf } from '@timunderhay/ts-reflection';
 
 describe('propertiesOf', () => {
   describe('classes', () => {
@@ -149,59 +149,35 @@ describe('propertiesOf', () => {
     });
 
     it('should return all public class properties when called with single public query', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ public: true }),
-        allPublicTestClassProperties,
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ public: true }), allPublicTestClassProperties);
     });
 
     it('should return all private class properties when flags are PRIVATE', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ private: true }),
-        allPrivateTestClassProperties,
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ private: true }), allPrivateTestClassProperties);
     });
 
     it('should return all protected class properties when flags are PROTECTED', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ protected: true }),
-        allProtectedTestClassProperties,
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ protected: true }), allProtectedTestClassProperties);
     });
 
     it('should return all readonly class properties when flags are READONLY', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ readonly: true }),
-        allReadonlyTestClassProperties,
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ readonly: true }), allReadonlyTestClassProperties);
     });
 
     it('should return all mutable class properties when flags are MUTABLE', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ readonly: false }),
-        allMutableTestClassProperties,
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ readonly: false }), allMutableTestClassProperties);
     });
 
     it('should return an empty array when flags are PUBLIC & PROTECTED', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ public: true, protected: true }),
-        [],
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ public: true, protected: true }), []);
     });
 
     it('should return an empty array when flags are PUBLIC & PRIVATE', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ public: true, private: true }),
-        [],
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ public: true, private: true }), []);
     });
 
     it('should return an empty array when flags are PROTECTED & PRIVATE', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ protected: true, private: true }),
-        [],
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ protected: true, private: true }), []);
     });
 
     it('should return all public or protected class properties when flags are PUBLIC | PROTECTED', () => {
@@ -262,17 +238,15 @@ describe('propertiesOf', () => {
     });
 
     it('should return all readonly protected class properties when flags are PROTECTED & READONLY', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ protected: true, readonly: true }),
-        [...allProtectedReadonlyTestClassProperties],
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ protected: true, readonly: true }), [
+        ...allProtectedReadonlyTestClassProperties,
+      ]);
     });
 
     it('should return all readonly private class properties when flags are PRIVATE & READONLY', () => {
-      expectPropertiesMatch(
-        propertiesOf<TestClass>({ private: true, readonly: true }),
-        [...allPrivateReadonlyTestClassProperties],
-      );
+      expectPropertiesMatch(propertiesOf<TestClass>({ private: true, readonly: true }), [
+        ...allPrivateReadonlyTestClassProperties,
+      ]);
     });
   });
 });
