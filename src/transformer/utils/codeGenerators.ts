@@ -17,7 +17,7 @@ export const createImportStatement = (factory: ts.NodeFactory, namedImport: stri
       false,
       undefined,
       factory.createNamedImports([
-        factory.createImportSpecifier(true, undefined, factory.createIdentifier(namedImport)),
+        factory.createImportSpecifier(false, undefined, factory.createIdentifier(namedImport)),
       ]),
     ),
     factory.createStringLiteral(path),
