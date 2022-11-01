@@ -29,7 +29,7 @@ export default (program: ts.Program): ts.TransformerFactory<ts.SourceFile> => {
       createPropertiesOfImport = createImport(
         factory,
         createPropertiesOfIdentifier,
-        '@timunderhay/ts-reflection/helpers/createPropertiesOf',
+        '@timunderhay/ts-reflection/helpers/createPropertiesOf.js',
         'createPropertiesOf',
       );
     } else {

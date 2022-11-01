@@ -1,6 +1,6 @@
 {
   "name": "@timunderhay/ts-reflection",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Type reflection utilities for TypeScript.",
   "main": "index.js",
   "types": "index.d.ts",
