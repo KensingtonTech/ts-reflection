@@ -25,7 +25,10 @@ export default (program: ts.Program): ts.TransformerFactory<ts.SourceFile> => {
 
     let createPropertiesOfImport: ts.Statement[];
     const moduleType = context.getCompilerOptions().module;
-    if (moduleType && [ModuleKind.ES2015, ModuleKind.ES2020, ModuleKind.ESNext].includes(moduleType)) {
+    if (
+      moduleType &&
+      [ModuleKind.ES2015, ModuleKind.ES2020, ModuleKind.ES2022, ModuleKind.ESNext].includes(moduleType)
+    ) {
       createPropertiesOfImport = createImport(
         factory,
         createPropertiesOfIdentifier,
